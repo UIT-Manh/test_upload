@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vinergy</title>
+    <link rel="stylesheet" type="text/css" href="../static/index.css">
+	<script
+			  src="https://code.jquery.com/jquery-3.3.1.min.js"
+			  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+			  crossorigin="anonymous"></script>
+	<script type="text/javascript" src="../static/index.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <canvas id="tempChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-3 justify-content-center">
+            <div class="image-box" id="image-box-1">
+                <p class="row mt-3 justify-content-center">Upload file csv</p>
+                <input type="file" name="image1" onchange="readUrl(this, 1)">
+                <div id="preview-image-box-1"></div>
+            </div>
+        
+        </div>
+        <div class='row mt-3 justify-content-center'>
+            <button name="send" id="sendbutton" class="center-button">Send</button>
+            
+        </div>
+    </div>
+    <!--suppress JSUnresolvedLibraryURL -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <!--suppress JSUnresolvedLibraryURL -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!--suppress JSUnresolvedLibraryURL -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+    <script src="../static/lineChart.js"></script>
+    <script>
+        function uploadFile(event) {
+            event.preventDefault(); // Prevent default form submission
+            var formData = new FormData(); // Create a FormData object to store form data
+            var fileInput = document.getElementById('fileUpload'); // Get file input element
+            formData.append('file', fileInput.files[0]); // Append file to FormData object
+
+            // You can now send this FormData object using XMLHttpRequest or Fetch API
+            // For example, using XMLHttpRequest:
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/upload', true); // Replace '/upload' with your server endpoint
+            xhr.onload = function() {
+                // Handle response here
+                console.log(xhr.responseText);
+            };
+            xhr.send(formData);
+        }
+    </script>
+</body>
+</html>
