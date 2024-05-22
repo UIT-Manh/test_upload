@@ -5,6 +5,7 @@ import pandas as pd
 from io import BytesIO
 from pyngrok import ngrok
 from filter_data import filter_data,send_data
+import threading
 app = FastAPI(docs_url="/",reload=True)
 
 @app.post("/files/")
@@ -27,7 +28,8 @@ async def create_upload_file(file: UploadFile):
     # data_cleaned = data.drop(rows_to_drop)
     # data_cleaned.columns = [name_col]
     df= filter_data(df)
-    send_data(df)
+    threading.Thread(target=send_data,args=([df]), daemon=True).start()
+    
     return {"filename": file.filename}
 
 if __name__ == "__main__":
